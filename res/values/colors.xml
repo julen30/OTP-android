@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <drawable name="grey">#CCCCCC</drawable>
+    <drawable name="grey_background">#EEEEEE</drawable>
+    <drawable name="grey_light">#F3F3F3</drawable>
+    <drawable name="white">#FFFFFF</drawable>
+    <drawable name="black">#000000</drawable>
+    <drawable name="black_transparent">#88000000</drawable>
+    <drawable name="text">#666666</drawable>
+    <drawable name="orange_text">#F15D22</drawable>
+    <drawable name="transparent">#00000000</drawable>
+    <drawable name="pink">#FF897E</drawable>
+    <drawable name="green">#7FCC99</drawable>
+    <drawable name="red">#D81E09</drawable>
+    <drawable name="blue_light">#0CA0DD</drawable>
+</resources>
