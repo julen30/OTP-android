@@ -1,5 +1,7 @@
 package com.example.otp_android;
 
+import net.cortexx.otp.HmacBasedOneTimePassword;
+import net.cortexx.otp.HmacBasedOneTimePassword.Algorithm;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
@@ -17,6 +19,9 @@ public class MainActivity extends FragmentActivity {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.center_layout, new StartActivity());
         transaction.commit();
+        String key="magufo";
+        HmacBasedOneTimePassword mac=new HmacBasedOneTimePassword(Algorithm.SHA1, 6,key.getBytes() );
+        System.out.println(mac.generatePassword(500));
     }
 
     @Override
