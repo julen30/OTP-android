@@ -15,12 +15,12 @@
         android:layout_alignParentTop="true"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_marginTop="150dp"
+        android:layout_marginTop="100dp"
         android:background="@drawable/white_rounded_shape"
         android:orientation="vertical" >
 
         <EditText
-            android:id="@+id/pin"
+            android:id="@+id/name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
@@ -28,8 +28,40 @@
             android:layout_marginTop="20dp"
             android:background="@drawable/white_rounded_shape"
             android:ems="10"
-            android:inputType="numberPassword"
+            android:inputType="text"
             android:hint="@string/user_name"
+            android:padding="12dp" >
+
+            <requestFocus />
+        </EditText>
+        
+        <EditText
+            android:id="@+id/pass"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/white_rounded_shape"
+            android:ems="10"
+            android:inputType="text"
+            android:hint="@string/password"
+            android:padding="12dp" >
+
+            <requestFocus />
+        </EditText>
+        
+        <EditText
+            android:id="@+id/counter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/white_rounded_shape"
+            android:ems="10"
+            android:inputType="text"
+            android:hint="@string/counter"
             android:padding="12dp" >
 
             <requestFocus />
@@ -69,7 +101,7 @@
         android:layout_height="50dp"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="125dp"
+        android:layout_marginTop="77dp"
         android:src="@drawable/exit" />
 
 </RelativeLayout>
