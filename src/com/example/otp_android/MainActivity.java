@@ -2,11 +2,13 @@ package com.example.otp_android;
 
 import net.cortexx.otp.HmacBasedOneTimePassword;
 import net.cortexx.otp.HmacBasedOneTimePassword.Algorithm;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.view.Menu;
 import android.view.View;
+import android.widget.EditText;
 
 public class MainActivity extends FragmentActivity {
     View center_layout;
@@ -15,7 +17,6 @@ public class MainActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         center_layout=findViewById(R.id.center_layout);
-
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.center_layout, new StartActivity());
         transaction.commit();
@@ -30,7 +31,7 @@ public class MainActivity extends FragmentActivity {
     public void register(View v) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         RegisterActivity registry_fragment = new RegisterActivity();
-        transaction.add(android.R.id.content, registry_fragment);
+        transaction.replace(R.id.center_layout, registry_fragment);
         transaction.addToBackStack(null);
         transaction.commit();
     }
@@ -41,6 +42,31 @@ public class MainActivity extends FragmentActivity {
         transaction.add(android.R.id.content, otp_fragment);
         transaction.addToBackStack(null);
         transaction.commit();
+    }
+    
+    public void dbHandler(View v){
+    	System.out.println("HOLA");
+    	MySQLiteHelper usdbh =
+             new MySQLiteHelper(v.getContext(), "usersdb", null, 1);
+    	SQLiteDatabase db = usdbh.getWritableDatabase();
+      //Si hemos abierto correctamente la base de datos
+      if(db != null)
+      {
+    	  System.out.println("asdasdas");
+    	  System.out.println(center_layout);
+    	  System.out.println(((EditText)center_layout.findViewById(R.id.name)));
+              String name = ((EditText)center_layout.findViewById(R.id.name)).getText().toString();
+              System.out.println(name);
+              String pass = ((EditText)center_layout.findViewById(R.id.pass)).getText().toString();
+              System.out.println(pass);
+              String counter = ((EditText)center_layout.findViewById(R.id.counter)).getText().toString();
+              System.out.println(counter);
+              //Insertamos los datos en la tabla Usuarios
+              db.execSQL("INSERT INTO users (nick,passphrase,counter) " +
+                      "VALUES ('" + name + "', '" + pass +"', '" +counter+"')");
+          //Cerramos la base de datos
+          db.close();
+      }
     }
 
 }
