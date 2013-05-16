@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="dexedLibs">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/bin/dexedLibs/net.cortexx.security.otp-1.0.0-456f43b589e3f7c72aac4e05034b562a.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bin/dexedLibs/android-support-v4-b5f1f355776ac66b20f73248f97e9beb.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bin/dexedLibs/android-support-v4-84bf289fa08ae34b830a89b5ca305adc.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bin/dexedLibs/net.cortexx.security.otp-1.0.0-18c7d9662a368f81a1f760a6fbd435cc.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
