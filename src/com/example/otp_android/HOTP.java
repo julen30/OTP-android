@@ -30,13 +30,8 @@ public class HOTP {
 		byte [] bytes=ByteBuffer.allocate(8).order(ByteOrder.BIG_ENDIAN).putLong(counter).array();
 		byte []resultingHash=mac.doFinal(bytes);
 		int offset=resultingHash[19]&0x0F;
-		int password=((ByteBuffer)ByteBuffer.wrap(resultingHash).order(ByteOrder.BIG_ENDIAN).position(offset)).getInt()*0x7FFFFFFF;
+		int password=((ByteBuffer)ByteBuffer.wrap(resultingHash).order(ByteOrder.BIG_ENDIAN).position(offset)).getInt()& 0x7FFFFFFF;
 		return password;
 	}
-	
-	public static void main (String[]args){
-		HOTP hotp=new HOTP(AlgorithmType.SHA1,5,new String("magufo").getBytes());
-		int pass=hotp.generateHTOPPassword(500);
-		System.out.println(pass);
-	}
+
 }

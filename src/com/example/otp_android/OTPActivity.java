@@ -2,6 +2,7 @@ package com.example.otp_android;
 
 import com.example.otp_android.HOTP.AlgorithmType;
 
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -29,7 +30,6 @@ public class OTPActivity extends Fragment{
         }
     });
     String[] campos = new String[] {"nick", "passphrase","counter"};
-    String[] args = new String[] {"magufo"};
 	MySQLiteHelper usdbh =
             new MySQLiteHelper(view.getContext(), "usersdb", null, 1);
 	SQLiteDatabase db = usdbh.getReadableDatabase();
@@ -48,9 +48,14 @@ public class OTPActivity extends Fragment{
     }
     HOTP hotp=new HOTP(AlgorithmType.SHA1,6,passphrase.getBytes());
     int otp=hotp.generateHTOPPassword(counter);
+    SQLiteDatabase dbW=usdbh.getWritableDatabase();
+    ContentValues cv = new ContentValues();
+    cv.put("counter", counter-1);
+    dbW.update("users", cv, null, null);
     ((TextView)view.findViewById(R.id.user_name)).setText(nick);
     ((TextView)view.findViewById(R.id.Secret)).setText(otp+"");
     return view;
+    
 }
 
 protected void exitFragment() {
