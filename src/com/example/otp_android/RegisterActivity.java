@@ -8,29 +8,13 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.View.OnClickListener;
-import android.widget.ImageView;
 import android.widget.TextView;
 public class RegisterActivity extends Fragment{
-
-    private ImageView exit;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) { 
         super.onCreate(savedInstanceState);
         final View view = inflater.inflate(R.layout.activity_registry, container, false);
-        exit=((ImageView) view.findViewById(R.id.exit));
-        exit.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // TODO Auto-generated method stub
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                StartActivity start_fragment = new StartActivity();
-                transaction.replace(R.id.center_layout, start_fragment);
-                transaction.addToBackStack(null);
-                transaction.commit();
-            }
-        });
         String[] campos = new String[] {"nick", "passphrase","counter"};
         MySQLiteHelper usdbh =
                 new MySQLiteHelper(view.getContext(), "usersdb", null, 1);

@@ -16,6 +16,7 @@ public class MainActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ((TextView)findViewById(R.id.generate_OTP)).setClickable(false);
         center_layout=findViewById(R.id.center_layout);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.center_layout, new StartActivity());
@@ -30,6 +31,7 @@ public class MainActivity extends FragmentActivity {
 
     public void register(View v) {
         ((TextView)v.findViewById(R.id.register)).setText("Synchronize");
+        
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         RegisterActivity registry_fragment = new RegisterActivity();
         transaction.replace(R.id.center_layout, registry_fragment);
@@ -53,27 +55,32 @@ public class MainActivity extends FragmentActivity {
         //Si hemos abierto correctamente la base de datos
         if(db != null)
         {	if(insert){
-	            String name = ((EditText)center_layout.findViewById(R.id.name)).getText().toString();
-	            String pass = ((EditText)center_layout.findViewById(R.id.pass)).getText().toString();
-	            String counter = ((EditText)center_layout.findViewById(R.id.counter)).getText().toString();
-	            //Insertamos los datos en la tabla Usuarios
-	            db.execSQL("INSERT INTO users (nick,passphrase,counter) " +
-	                    "VALUES ('" + name + "', '" + pass +"', '" +counter+"')");
-	            //Cerramos la base de datos
-	            db.close();
-            }else{
-                String name = ((EditText)center_layout.findViewById(R.id.name)).getText().toString();
-	            String pass = ((EditText)center_layout.findViewById(R.id.pass)).getText().toString();
-	            String counter = ((EditText)center_layout.findViewById(R.id.counter)).getText().toString();
-	            ContentValues cv = new ContentValues();
-	            cv.put("passphrase", pass);
-	            cv.put("counter", counter);
-	            db.update("users", cv, null, null);
-	            db.close();
-            }
-        
+            String name = ((EditText)center_layout.findViewById(R.id.name)).getText().toString();
+            String pass = ((EditText)center_layout.findViewById(R.id.pass)).getText().toString();
+            String counter = ((EditText)center_layout.findViewById(R.id.counter)).getText().toString();
+            //Insertamos los datos en la tabla Usuarios
+            db.execSQL("INSERT INTO users (nick,passphrase,counter) " +
+                    "VALUES ('" + name + "', '" + pass +"', '" +counter+"')");
+            //Cerramos la base de datos
+            db.close();
+        }else{
+            String name = ((EditText)center_layout.findViewById(R.id.name)).getText().toString();
+            String pass = ((EditText)center_layout.findViewById(R.id.pass)).getText().toString();
+            String counter = ((EditText)center_layout.findViewById(R.id.counter)).getText().toString();
+            ContentValues cv = new ContentValues();
+            cv.put("passphrase", pass);
+            cv.put("counter", counter);
+            db.update("users", cv, null, null);
+            db.close();
         }
-        
+
+        }
+        ((TextView)findViewById(R.id.generate_OTP)).setClickable(true);
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        StartActivity start_fragment = new StartActivity();
+        transaction.replace(R.id.center_layout, start_fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 
 }

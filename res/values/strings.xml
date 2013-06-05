@@ -9,7 +9,7 @@
     <string name="title">OTP Generator</string>
     <string name="user_name">Nombre del usuario</string>
     <string name="text">Secret code:</string>
-    <string name="password">Password</string>
+    <string name="password">Seed</string>
     <string name="counter">Counter</string>
     
 </resources>
