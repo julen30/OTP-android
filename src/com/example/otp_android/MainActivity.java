@@ -1,5 +1,6 @@
 package com.example.otp_android;
 
+import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -48,17 +49,29 @@ public class MainActivity extends FragmentActivity {
         MySQLiteHelper usdbh =
                 new MySQLiteHelper(v.getContext(), "usersdb", null, 1);
         SQLiteDatabase db = usdbh.getWritableDatabase();
+        boolean insert=((TextView)center_layout.findViewById(R.id.name)).isFocusable();
         //Si hemos abierto correctamente la base de datos
         if(db != null)
-        {
-            String name = ((EditText)center_layout.findViewById(R.id.name)).getText().toString();
-            String pass = ((EditText)center_layout.findViewById(R.id.pass)).getText().toString();
-            String counter = ((EditText)center_layout.findViewById(R.id.counter)).getText().toString();
-            //Insertamos los datos en la tabla Usuarios
-            db.execSQL("INSERT INTO users (nick,passphrase,counter) " +
-                    "VALUES ('" + name + "', '" + pass +"', '" +counter+"')");
-            //Cerramos la base de datos
-            db.close();
+        {	if(insert){
+	            String name = ((EditText)center_layout.findViewById(R.id.name)).getText().toString();
+	            String pass = ((EditText)center_layout.findViewById(R.id.pass)).getText().toString();
+	            String counter = ((EditText)center_layout.findViewById(R.id.counter)).getText().toString();
+	            //Insertamos los datos en la tabla Usuarios
+	            db.execSQL("INSERT INTO users (nick,passphrase,counter) " +
+	                    "VALUES ('" + name + "', '" + pass +"', '" +counter+"')");
+	            //Cerramos la base de datos
+	            db.close();
+            }else{
+                String name = ((EditText)center_layout.findViewById(R.id.name)).getText().toString();
+	            String pass = ((EditText)center_layout.findViewById(R.id.pass)).getText().toString();
+	            String counter = ((EditText)center_layout.findViewById(R.id.counter)).getText().toString();
+	            ContentValues cv = new ContentValues();
+	            cv.put("passphrase", pass);
+	            cv.put("counter", counter);
+	            db.update("users", cv, null, null);
+	            db.close();
+            }
+        
         }
         
     }

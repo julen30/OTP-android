@@ -42,8 +42,10 @@ public class RegisterActivity extends Fragment{
                   nick = c.getString(0);
              } while(c.moveToNext());
         }
+        if(nick!=null){
         ((TextView)view.findViewById(R.id.name)).setText(nick);
         ((TextView)view.findViewById(R.id.name)).setFocusable(false);
+        }
         return view;
     }
 

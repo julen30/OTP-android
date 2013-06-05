@@ -46,12 +46,15 @@ public class OTPActivity extends Fragment{
                 counter=c.getInt(2);
             } while(c.moveToNext());
         }
+        System.out.println(passphrase);
+        System.out.println(counter);
         HOTP hotp=new HOTP(AlgorithmType.SHA1,6,passphrase.getBytes());
         int otp=hotp.generateHTOPPassword(counter);
         SQLiteDatabase dbW=usdbh.getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put("counter", counter-1);
         dbW.update("users", cv, null, null);
+        dbW.close();
         ((TextView)view.findViewById(R.id.user_name)).setText(nick);
         ((TextView)view.findViewById(R.id.Secret)).setText(otp+"");
         return view;
