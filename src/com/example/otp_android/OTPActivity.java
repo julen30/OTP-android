@@ -19,51 +19,51 @@ public class OTPActivity extends Fragment{
     ImageView exit;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) { 
-    super.onCreate(savedInstanceState);
-    View view = inflater.inflate(R.layout.activity_otp, container, false);
-    exit=((ImageView) view.findViewById(R.id.exit));
-    exit.setOnClickListener(new OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            // TODO Auto-generated method stub
-            exitFragment();
+        super.onCreate(savedInstanceState);
+        View view = inflater.inflate(R.layout.activity_otp, container, false);
+        exit=((ImageView) view.findViewById(R.id.exit));
+        exit.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                exitFragment();
+            }
+        });
+        String[] campos = new String[] {"nick", "passphrase","counter"};
+        MySQLiteHelper usdbh =
+                new MySQLiteHelper(view.getContext(), "usersdb", null, 1);
+        SQLiteDatabase db = usdbh.getReadableDatabase();
+        Cursor c = db.query("users", campos,null ,null, null, null, null);
+        //Nos aseguramos de que existe al menos un registro
+        String nick=null;
+        String passphrase=null;
+        int counter=0;
+        if (c.moveToFirst()) {
+            //Recorremos el cursor hasta que no haya más registros
+            do {
+                nick = c.getString(0);
+                passphrase = c.getString(1);
+                counter=c.getInt(2);
+            } while(c.moveToNext());
         }
-    });
-    String[] campos = new String[] {"nick", "passphrase","counter"};
-	MySQLiteHelper usdbh =
-            new MySQLiteHelper(view.getContext(), "usersdb", null, 1);
-	SQLiteDatabase db = usdbh.getReadableDatabase();
-    Cursor c = db.query("users", campos,null ,null, null, null, null);
-    //Nos aseguramos de que existe al menos un registro
-    String nick=null;
-    String passphrase=null;
-    int counter=0;
-    if (c.moveToFirst()) {
-         //Recorremos el cursor hasta que no haya más registros
-         do {
-              nick = c.getString(0);
-              passphrase = c.getString(1);
-              counter=c.getInt(2);
-         } while(c.moveToNext());
-    }
-    HOTP hotp=new HOTP(AlgorithmType.SHA1,6,passphrase.getBytes());
-    int otp=hotp.generateHTOPPassword(counter);
-    SQLiteDatabase dbW=usdbh.getWritableDatabase();
-    ContentValues cv = new ContentValues();
-    cv.put("counter", counter-1);
-    dbW.update("users", cv, null, null);
-    ((TextView)view.findViewById(R.id.user_name)).setText(nick);
-    ((TextView)view.findViewById(R.id.Secret)).setText(otp+"");
-    return view;
-    
-}
+        HOTP hotp=new HOTP(AlgorithmType.SHA1,6,passphrase.getBytes());
+        int otp=hotp.generateHTOPPassword(counter);
+        SQLiteDatabase dbW=usdbh.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put("counter", counter-1);
+        dbW.update("users", cv, null, null);
+        ((TextView)view.findViewById(R.id.user_name)).setText(nick);
+        ((TextView)view.findViewById(R.id.Secret)).setText(otp+"");
+        return view;
 
-protected void exitFragment() {
-    // TODO Auto-generated method stub
-    FragmentTransaction transaction = getFragmentManager().beginTransaction();
-    transaction.remove(this);
-    transaction.addToBackStack(null);
-    transaction.commit();
-}
+    }
+
+    protected void exitFragment() {
+        // TODO Auto-generated method stub
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.remove(this);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
 
 }

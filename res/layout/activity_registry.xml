@@ -15,7 +15,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="75dp"
         android:background="@drawable/white_rounded_shape"
         android:orientation="vertical" >
 
@@ -66,15 +66,16 @@
 
             <requestFocus />
         </EditText>
+
         <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="New Button"
-                android:id="@+id/button"
-                android:layout_marginBottom="10dp"
-                android:layout_marginLeft="100dp"
-                android:layout_marginTop="20dp"
-                android:onClick="dbHandler"/>
+            android:id="@+id/button"
+            android:layout_width="148dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="80dp"
+            android:layout_marginTop="20dp"
+            android:onClick="dbHandler"
+            android:text="Send" />
 
     </LinearLayout>
 
@@ -84,7 +85,7 @@
         android:layout_height="50dp"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="77dp"
+        android:layout_marginTop="53dp"
         android:src="@drawable/exit" />
 
 </RelativeLayout>
